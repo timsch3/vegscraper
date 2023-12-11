@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import codecs
 import json
 
 headers = {
@@ -48,4 +49,8 @@ for category_div in categories_divs:
         
         next_pagination_page = current_pagination_soup.find('a', attrs={"rel": "next"})
 
-print(json.dumps(data, indent=2))
+with open("data-unicode.json", "w") as outfile:
+    outfile.write(json.dumps(data, indent=2))
+
+with codecs.open("data-utf8.json", "w", encoding='utf8') as file:
+    json.dump(data, file, indent=2, ensure_ascii=False)
